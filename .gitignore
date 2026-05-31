@@ -1,0 +1,59 @@
+
+- 
++ # Go build and test artifacts
++ *.o
++ *.a
++ *.so
++ .so
++ *.out
++ *.test
++ *.swp
++ *.swo
++ 
++ # Go binaries for various platforms
++ /bin/
++ /dist/
++ *.exe
++ *.exe~
++ *.dll
++ *.dylib
++ 
++ # Go modules
++ go.sum
++ vendor/
++ 
++ # IDE and editor files
++ .vscode/
++ .idea/
++ *.iml
++ *.swp
++ *.swo
++ *~
++ .DS_Store
++ .env
++ .env.local
++ 
++ # Docker volumes and cache
++ docker-volumes/
++ .docker/
++ 
++ # Temporary files
++ *.tmp
++ *.log
++ *.pid
++ 
++ # OS specific
++ Thumbs.db
++ .DS_Store
++ 
++ # Local environment overrides
++ .env.local
++ .env.*.local
++ 
++ # Build outputs
++ bin/
++ dist/
++ 
++ # Migration tools
++ goose-bin
++ .claude

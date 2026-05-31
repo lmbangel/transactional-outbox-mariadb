@@ -1,0 +1,44 @@
+services:
+  mariadb:
+    image: mariadb:10.11
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: supplychain
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  migrate:
+    image: ghcr.io/kukymbr/goose-docker:latest
+    environment:
+      GOOSE_DRIVER: mysql
+      GOOSE_DBSTRING: "root:secret@tcp(mariadb:3306)/supplychain?parseTime=true&multiStatements=true"
+      GOOSE_MIGRATION_DIR: /migrations
+    volumes:
+      - ./db/migrations:/migrations
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    restart: on-failure
+
+volumes:
+  mariadb_data: {}
