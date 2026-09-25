@@ -2,6 +2,8 @@
 
 > Guaranteed event delivery for a supply chain sales order flow — a production-style implementation of the transactional outbox pattern in Go, MariaDB, and RabbitMQ.
 
+> 🚧 **Status: in progress.** Done so far: Docker Compose stack (MariaDB, RabbitMQ, goose migrations), the `orders` and `outbox` schema, and the DB connection layer. **Next:** Order Service transactional write → Outbox Relay → the three consumers. The sections below describe the target design.
+
 ---
 
 ## Why this exists
